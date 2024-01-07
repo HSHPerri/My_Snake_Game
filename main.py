@@ -17,9 +17,14 @@ screen.bgcolor("black")
 screen.title("Snake")
 
 # Creates the snake within the screen once you've made the screen.
-# Waits 2 seconds before starting the game.
 snake = Snake()
 time.sleep(2)
+
+screen.listen()
+screen.onkey(snake.up, "Up")
+screen.onkey(snake.down, "Down")
+screen.onkey(snake.left, "Left")
+screen.onkey(snake.right, "Right")
 
 # Removes animations but you have to call screen updates.
 screen.tracer(0)
@@ -30,6 +35,6 @@ while game_is_on:
     screen.update()
     time.sleep(0.1)
 
-    snake.move()  # This moves the snake forward continuously.
+    snake.move_snake()  # This moves the snake forward continuously.
 
 screen.exitonclick()

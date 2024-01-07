@@ -30,7 +30,7 @@ class Snake:
             new_segment.goto(position)
             self.segments.append(new_segment)
 
-    def move(self):
+    def move_snake(self):
         """
         Function moves each segment from the back to the position of the segment in front, it then moves
         the first segment in the snake forward.
@@ -41,3 +41,44 @@ class Snake:
             self.segments[seg_num].goto(new_x, new_y)
 
         self.segments[0].forward(20)
+
+    def right(self):
+        """
+        If not facing left, faces snake right.
+        :return: Null.
+        """
+        if self.segments[0].heading() == 180:
+            return
+        else:
+            self.segments[0].setheading(0)
+
+    def up(self):
+        """
+        If not facing down, faces snake up.
+        :return: Null.
+        """
+        if self.segments[0].heading() == 270:
+            return
+        else:
+            self.segments[0].setheading(90)
+
+    def left(self):
+        """
+        If not facing right, faces snake left.
+        :return: Null.
+        """
+        if self.segments[0].heading() == 0:
+            return
+        else:
+            self.segments[0].setheading(180)
+
+    def down(self):
+        """
+        If not facing up, faces snake down.
+        :return: Null.
+        """
+        if self.segments[0].heading() == 90:
+            return
+        else:
+            self.segments[0].setheading(270)
+
