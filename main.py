@@ -56,13 +56,17 @@ while game_is_on:
     # If snake collides with a wall, stop the snake moving and give game over message.
     # Had to separate out into two if statements otherwise it only recognises two walls as death pointers.
     # First group checks the X coordinate.
-    if snake.snake_head.position()[0] == 300 or snake.snake_head.position()[0] == -300:
+    if snake.check_wall_collision() is True:
         game_is_on = False
         end_message.write("Game Over.\nClick to exit.", False, "center", ('Arial', 24, 'normal'))
 
-    # Second group checks the y coordinate.
-    if snake.snake_head.position()[1] == 300 or snake.snake_head.position()[1] == -300:
-        game_is_on = False
-        end_message.write("Game Over.\nClick to exit.", False, "center", ('Arial', 24, 'normal'))
+    # If snake collides wih a segment in its tail, the game is over.
+    for segment in snake.segments:
+        if segment == snake.snake_head:
+            pass
+        elif snake.snake_head.distance(segment) < 10:
+            game_is_on = False
+            end_message.write("Game Over.\nClick to exit.", False, "center", ('Arial', 24, 'normal'))
+
 
 screen.exitonclick()

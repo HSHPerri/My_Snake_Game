@@ -126,3 +126,17 @@ class Snake:
                 new_segment.penup()
                 new_segment.goto(new_seg_position)
                 self.segments.append(new_segment)
+
+    def check_wall_collision(self):
+        """
+        Function serves to check whether snake head is beyond/at the limits of the wall. If
+        yes, then it returns true, otherwise returns false. 
+        """
+        if self.segments[0].position()[0] >= 300  or self.segments[0].position()[0] <= -300:
+            return True
+        
+        elif self.segments[0].position()[1] >= 300 or self.segments[0].position()[1] <= -300:
+            return True
+
+        else:
+            return False
