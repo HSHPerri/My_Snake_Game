@@ -39,7 +39,7 @@ screen.onkey(snake.right, "Right")
 # Removes animations but you have to call screen updates.
 screen.tracer(0)
 
-# While game is on, loop every 0.1 seconds, updating the screen.
+# While game is on, loop every 0.08 seconds (12.5 frames per second), updating the screen with each frame.
 game_is_on = True
 while game_is_on:
     screen.update()
@@ -61,12 +61,9 @@ while game_is_on:
         end_message.write("Game Over.\nClick to exit.", False, "center", ('Arial', 24, 'normal'))
 
     # If snake collides wih a segment in its tail, the game is over.
-    for segment in snake.segments:
-        if segment == snake.snake_head:
-            pass
-        elif snake.snake_head.distance(segment) < 10:
-            game_is_on = False
-            end_message.write("Game Over.\nClick to exit.", False, "center", ('Arial', 24, 'normal'))
+    if snake.check_tail_collision():
+        game_is_on = False
+        end_message.write("Game Over.\nClick to exit.", False, "center", ('Arial', 24, 'normal'))
 
 
 screen.exitonclick()

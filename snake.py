@@ -5,6 +5,10 @@ Handles Snake object movements and methods.
 from turtle import Turtle
 
 starting_positions = [(0, 0), (-20, 0), (-40, 0)]
+RIGHT = 0
+UP = 90
+LEFT = 180
+DOWN = 270
 
 
 class Snake:
@@ -47,32 +51,32 @@ class Snake:
         If not facing left, faces snake right.
         :return: Null.
         """
-        if self.snake_head.heading() != 180:
-            self.snake_head.setheading(0)
+        if self.snake_head.heading() != LEFT:
+            self.snake_head.setheading(RIGHT)
 
     def up(self):
         """
         If not facing down, faces snake up.
         :return: Null.
         """
-        if self.snake_head.heading() != 270:
-            self.snake_head.setheading(90)
+        if self.snake_head.heading() != DOWN:
+            self.snake_head.setheading(UP)
 
     def left(self):
         """
         If not facing right, faces snake left.
         :return: Null.
         """
-        if self.snake_head.heading() != 0:
-            self.snake_head.setheading(180)
+        if self.snake_head.heading() != RIGHT:
+            self.snake_head.setheading(LEFT)
 
     def down(self):
         """
         If not facing up, faces snake down.
         :return: Null.
         """
-        if self.snake_head.heading() != 90:
-            self.snake_head.setheading(270)
+        if self.snake_head.heading() != UP:
+            self.snake_head.setheading(DOWN)
 
     def new_segment(self):
         """
@@ -81,16 +85,17 @@ class Snake:
         :return:
         """
         # Last seg position is acquired from the last segment in chain.
-        last_seg_position = self.segments[len(self.segments)-1].position()
+        last_seg_position = self.segments[-1].position()
         # print(last_seg_position)
 
         # assigning the x and y coordinates of the position to variables.
         last_seg_position_x = last_seg_position[0]
         last_seg_position_y = last_seg_position[1]
 
-        # based on heading, create new segment 20 pixels away.
-        # Follows same creation structure as initializing function.
-        match self.segments[len(self.segments)-1].heading():
+        match self.segments[-1].heading():
+            # based on heading, create new segment 20 pixels away.
+            # For some reason - doesn't work with constants defined earlier.
+
             # Case that heading is right.
             case 0:
                 new_seg_position = last_seg_position_x - 20, last_seg_position_y
@@ -140,3 +145,14 @@ class Snake:
 
         else:
             return False
+
+    def check_tail_collision(self):
+        """
+        Function serves to check whether the snake head is colliding with another snake segment.
+        If yes, it returns true, if not, it returns false.
+        """
+        for segment in self.segments:
+            if segment == self.snake_head:
+                return False
+            elif self.snake_head.distance(segment) < 10:
+                return True
