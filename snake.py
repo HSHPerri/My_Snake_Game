@@ -20,6 +20,13 @@ class Snake:
         self.create_snake()
         self.snake_head = self.segments[0]
 
+        # This section of initializer functions creates the game-over turtle.
+        self.end_message = Turtle()
+        self.end_message.hideturtle()
+        self.end_message.penup()
+        self.end_message.color("yellow")
+        self.end_message.hideturtle()
+
     def create_snake(self):
         """
         Initial creation of snake body, makes three turtles, puts them in their starting positions and then
@@ -153,6 +160,22 @@ class Snake:
         """
         for segment in self.segments:
             if segment == self.snake_head:
-                return False
+                pass
             elif self.snake_head.distance(segment) < 10:
                 return True
+
+    def game_reset(self):
+        """
+        Function to tell the game to reset back to original state.
+        """
+        for segment in self.segments:
+            segment.reset()
+            segment.clear()
+
+        self.__init__()
+
+    def game_over_message(self):
+        self.end_message.write("Game Over.\nClick to exit.", False, "center", ('Arial', 24, 'normal'))
+
+    def clear_game_over_message(self):
+        self.end_message.clear()
