@@ -24,8 +24,17 @@ class Snake:
         self.end_message = Turtle()
         self.end_message.hideturtle()
         self.end_message.penup()
-        self.end_message.color("yellow")
+        self.end_message.color("red")
         self.end_message.hideturtle()
+
+        # Second line is a new turtle to avoid weird alignment issue where text aligns to the left rather
+        # than center.
+        self.end_message_2 = Turtle()
+        self.end_message_2.hideturtle()
+        self.end_message_2.penup()
+        self.end_message_2.color("red")
+        self.end_message_2.hideturtle()
+        self.end_message_2.goto(0, -30)
 
     def create_snake(self):
         """
@@ -144,7 +153,7 @@ class Snake:
         Function serves to check whether snake head is beyond/at the limits of the wall. If
         yes, then it returns true, otherwise returns false. 
         """
-        if self.segments[0].position()[0] >= 300  or self.segments[0].position()[0] <= -300:
+        if self.segments[0].position()[0] >= 300 or self.segments[0].position()[0] <= -300:
             return True
         
         elif self.segments[0].position()[1] >= 300 or self.segments[0].position()[1] <= -300:
@@ -175,7 +184,15 @@ class Snake:
         self.__init__()
 
     def game_over_message(self):
-        self.end_message.write("Game Over.\nClick to exit.", False, "center", ('Arial', 24, 'normal'))
+        """
+        Writes the end of game messages upon losing the game.
+        """
+        self.end_message.write("Game Over\nClick to exit", False, "center", ('Arial', 24, 'normal'))
+        self.end_message_2.write("Press space to try again", False, "center", ('Arial', 24, 'normal'))
 
     def clear_game_over_message(self):
+        """
+        Clears the end of game messages upon starting a new game.
+        """
         self.end_message.clear()
+        self.end_message_2.clear()
