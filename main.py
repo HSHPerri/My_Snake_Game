@@ -2,6 +2,10 @@
 Snake game - A Python take on Snake using Turtle
 """
 
+# TODO: Finish Hi Score functionality.
+# TODO: Clean up code and refactor where possible.
+# TODO: Make sure that comments are sufficient in the code.
+
 # Import classes from turtle module and time module.
 from turtle import Screen
 import time
@@ -36,6 +40,10 @@ screen.tracer(0)
 
 
 def snake_game_begin():
+    """
+    This function controls the game logic and can be used to restart the game when it ends
+    or to start the game when you first load it up. 
+    """
     # If the snake isn't at it's beginning position, call the reset function.
     if snake.snake_head.position() != (0, 0) or len(snake.segments) > 3:
         scoreboard.hi_score_check_and_store()
@@ -64,7 +72,7 @@ def snake_game_begin():
             snake.game_over_message()
 
         # If snake collides wih a segment in its tail, the game is over.
-        elif snake.check_tail_collision() is True:
+        elif snake.check_tail_collision():
             game_is_on = False
             snake.game_over_message()
 
